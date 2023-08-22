@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wavenews/UI/top_news/top_news_tab.dart';
+import 'package:wavenews/cubits/top_news/top_news_cubit.dart';
 
 import 'explore/explore_tab.dart';
 import 'my_news/top_news_tab.dart';
@@ -26,6 +27,7 @@ class HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    context.read<TopNewsCubit>().fetchNews();
     super.initState();
   }
 
