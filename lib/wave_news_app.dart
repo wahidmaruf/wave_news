@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wavenews/UI/home_page.dart';
 import 'package:wavenews/cubits/theme/theme_cubit.dart';
 import 'package:wavenews/repository/news_repository.dart';
 
@@ -26,6 +27,10 @@ class WaveNewsApp extends StatelessWidget {
                 title: 'Wave News',
                 debugShowCheckedModeBanner: false,
                 themeMode: state.themeMode,
+                initialRoute: HomePage.routeName,
+                routes: {
+                  HomePage.routeName: (context) => const HomePage(),
+                },
                 theme: ThemeData(
                     useMaterial3: true,
                     brightness: Brightness.light,
@@ -37,9 +42,7 @@ class WaveNewsApp extends StatelessWidget {
                 builder: (context, child) {
                   return MediaQuery(
                     data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-                    child: const Center(
-                      child: Text("Hello World"),
-                    ),
+                    child: child!,
                   );
                 },
               );
