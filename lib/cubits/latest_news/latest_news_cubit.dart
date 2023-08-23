@@ -5,18 +5,18 @@ import 'package:wavenews/models/data_status.dart';
 import 'package:wavenews/repository/news_repository.dart';
 import '../../models/news_article.dart';
 
-part 'top_news_state.dart';
+part 'latest_news_state.dart';
 
-class TopNewsCubit extends HydratedCubit<TopNewsState> {
+class LatestNewsCubit extends HydratedCubit<LatestNewsState> {
   final NewsRepository newsRepository;
 
-  TopNewsCubit({required this.newsRepository})
-      : super(TopNewsState.initial());
+  LatestNewsCubit({required this.newsRepository})
+      : super(LatestNewsState.initial());
 
   void fetchNews() async {
     try {
       emit(state.copyWith(status: DataStatus.loading));
-      final newsList = await newsRepository.fetchTopHeadlines();
+      final newsList = await newsRepository.fetchNews();
       if (kDebugMode) {
         print(newsList.toString());
       }
@@ -30,16 +30,16 @@ class TopNewsCubit extends HydratedCubit<TopNewsState> {
   }
 
   @override
-  TopNewsState? fromJson(Map<String, dynamic> json) {
+  LatestNewsState? fromJson(Map<String, dynamic> json) {
     try {
-      return TopNewsState.fromJson(json);
+      return LatestNewsState.fromJson(json);
     } catch (_) {
       return null;
     }
   }
 
   @override
-  Map<String, dynamic>? toJson(TopNewsState state) {
+  Map<String, dynamic>? toJson(LatestNewsState state) {
     return state.toJson();
   }
 }

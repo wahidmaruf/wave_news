@@ -2,21 +2,21 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:wavenews/models/data_status.dart';
+import 'package:wavenews/models/news_article.dart';
 import 'package:wavenews/repository/news_repository.dart';
-import '../../models/news_article.dart';
 
-part 'top_news_state.dart';
+part 'search_state.dart';
 
-class TopNewsCubit extends HydratedCubit<TopNewsState> {
-  final NewsRepository newsRepository;
+class SearchCubit extends HydratedCubit<SearchState> {
+  final NewsRepository repository;
 
-  TopNewsCubit({required this.newsRepository})
-      : super(TopNewsState.initial());
+  SearchCubit({required this.repository})
+      : super(SearchState.initial());
 
-  void fetchNews() async {
+  void fetchNews(String keyword) async {
     try {
       emit(state.copyWith(status: DataStatus.loading));
-      final newsList = await newsRepository.fetchTopHeadlines();
+      final newsList = await repository.fetchNews(keyword: keyword);
       if (kDebugMode) {
         print(newsList.toString());
       }
@@ -30,16 +30,16 @@ class TopNewsCubit extends HydratedCubit<TopNewsState> {
   }
 
   @override
-  TopNewsState? fromJson(Map<String, dynamic> json) {
+  SearchState? fromJson(Map<String, dynamic> json) {
     try {
-      return TopNewsState.fromJson(json);
+      return SearchState.fromJson(json);
     } catch (_) {
       return null;
     }
   }
 
   @override
-  Map<String, dynamic>? toJson(TopNewsState state) {
+  Map<String, dynamic>? toJson(SearchState state) {
     return state.toJson();
   }
 }
