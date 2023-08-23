@@ -3,8 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CustomSliverAppBar extends StatelessWidget {
   final String title;
+  final List<Widget>? actions;
 
-  const CustomSliverAppBar({super.key, required this.title});
+  const CustomSliverAppBar({super.key, required this.title, this.actions});
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +16,7 @@ class CustomSliverAppBar extends StatelessWidget {
       expandedHeight: 95.0,
       floating: false,
       pinned: true,
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.light),
-          onPressed: () {
-            // Perform the action when the icon is pressed
-          },
-        ),
-      ],
+      actions: actions,
       flexibleSpace: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
         final bool isExpanded = constraints.biggest.height ==
