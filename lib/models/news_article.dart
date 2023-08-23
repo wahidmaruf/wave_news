@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class NewsArticle {
   final String sourceId;
   final String sourceName;
@@ -6,7 +8,7 @@ class NewsArticle {
   final String description;
   final String url;
   final String urlToImage;
-  final String publishedAt;
+  final DateTime publishedAt;
   final String content;
 
   NewsArticle({
@@ -30,7 +32,7 @@ class NewsArticle {
       description: json['description'] ?? "",
       url: json['url'] ?? "",
       urlToImage: json['urlToImage'] ?? "",
-      publishedAt: json['publishedAt'] ?? "",
+      publishedAt: DateTime.parse(json['publishedAt'] ?? ""), // Parse to DateTime
       content: json['content'] ?? "",
     );
   }
@@ -44,8 +46,28 @@ class NewsArticle {
       'description': description,
       'url': url,
       'urlToImage': urlToImage,
-      'publishedAt': publishedAt,
+      'publishedAt': publishedAt.toIso8601String(), // Convert to ISO 8601 string
       'content': content,
     };
+  }
+
+  String getFormattedPublishedAt() {
+    final now = DateTime.now();
+    final difference = now.difference(publishedAt);
+
+    if (difference.inSeconds < 60) {
+      return "${difference.inSeconds} seconds ago";
+    } else if (difference.inMinutes < 60) {
+      return "${difference.inMinutes} minutes ago";
+    } else if (difference.inMinutes == 60) {
+      return "1 hour ago";
+    } else if (difference.inHours < 24) {
+      return "${difference.inHours} hours ago";
+    } else if (difference.inHours >= 24 && difference.inHours < 36) {
+      return "1 day ago";
+    } else {
+      final formattedDate = DateFormat('MMM d, yyyy, HH:mm').format(publishedAt);
+      return formattedDate;
+    }
   }
 }
