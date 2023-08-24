@@ -8,15 +8,14 @@ import '../../models/news_article.dart';
 part 'top_news_state.dart';
 
 class TopNewsCubit extends HydratedCubit<TopNewsState> {
-  final NewsRepository newsRepository;
+  final NewsRepository repository;
 
-  TopNewsCubit({required this.newsRepository})
-      : super(TopNewsState.initial());
+  TopNewsCubit({required this.repository}) : super(TopNewsState.initial());
 
   void fetchNews() async {
     try {
       emit(state.copyWith(status: DataStatus.loading));
-      final newsList = await newsRepository.fetchTopHeadlines();
+      final newsList = await repository.fetchTopHeadlines();
       if (kDebugMode) {
         print(newsList.toString());
       }

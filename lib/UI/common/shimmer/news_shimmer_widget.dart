@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:wavenews/utils/color_constraint.dart';
 
-class TopNewsShimmerWidget extends StatelessWidget {
-  const TopNewsShimmerWidget({
+class NewsShimmerWidget extends StatelessWidget {
+  const NewsShimmerWidget({
     super.key,
   });
 

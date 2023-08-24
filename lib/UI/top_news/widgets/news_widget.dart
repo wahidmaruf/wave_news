@@ -17,7 +17,7 @@ class NewsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-            (context, index) {
+        (context, index) {
           final news = newsList[index];
           if (index == 0) {
             return GestureDetector(
@@ -27,16 +27,13 @@ class NewsWidget extends StatelessWidget {
               child: Column(
                 children: [
                   CustomImageWidget(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
+                    width: MediaQuery.of(context).size.width,
                     height: 250,
                     imageUrl: news.urlToImage,
                   ),
                   Padding(
-                    padding:
-                    const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 12),
+                    padding: const EdgeInsets.only(
+                        left: 15, right: 15, top: 5, bottom: 12),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -57,7 +54,9 @@ class NewsWidget extends StatelessWidget {
               ),
             );
           }
-          return NewsCard(news: news,);
+          return NewsCard(
+            news: news,
+          );
         },
         childCount: newsList.length,
       ),
@@ -65,10 +64,7 @@ class NewsWidget extends StatelessWidget {
   }
 
   void pushNewsDetail(BuildContext context, NewsArticle news) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => NewsDetail(newsArticle: news))
-    );
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => NewsDetail(news: news)));
   }
 }

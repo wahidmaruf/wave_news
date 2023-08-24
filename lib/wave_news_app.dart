@@ -7,6 +7,8 @@ import 'package:wavenews/cubits/theme/theme_cubit.dart';
 import 'package:wavenews/cubits/top_news/top_news_cubit.dart';
 import 'package:wavenews/repository/news_repository.dart';
 
+import 'cubits/news_list/news_list_cubit.dart';
+
 class WaveNewsApp extends StatelessWidget {
   const WaveNewsApp({Key? key}) : super(key: key);
 
@@ -23,13 +25,16 @@ class WaveNewsApp extends StatelessWidget {
           BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
           BlocProvider<TopNewsCubit>(
               create: (context) =>
-                  TopNewsCubit(newsRepository: context.read<NewsRepository>())),
+                  TopNewsCubit(repository: context.read<NewsRepository>())),
           BlocProvider<LatestNewsCubit>(
-              create: (context) =>
-                  LatestNewsCubit(newsRepository: context.read<NewsRepository>())),
+              create: (context) => LatestNewsCubit(
+                  newsRepository: context.read<NewsRepository>())),
           BlocProvider<SearchCubit>(
               create: (context) =>
                   SearchCubit(repository: context.read<NewsRepository>())),
+          BlocProvider<NewsListCubit>(
+              create: (context) =>
+                  NewsListCubit(repository: context.read<NewsRepository>())),
         ],
         child: LayoutBuilder(builder: (context, constraints) {
           return BlocBuilder<ThemeCubit, ThemeState>(

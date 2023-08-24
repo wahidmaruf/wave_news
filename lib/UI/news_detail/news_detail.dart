@@ -4,9 +4,9 @@ import 'package:wavenews/UI/common/custom_image_widget.dart';
 import 'package:wavenews/models/news_article.dart';
 
 class NewsDetail extends StatelessWidget {
-  const NewsDetail({required this.newsArticle, super.key});
+  const NewsDetail({required this.news, super.key});
 
-  final NewsArticle newsArticle;
+  final NewsArticle news;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class NewsDetail extends StatelessWidget {
             CustomImageWidget(
               width: MediaQuery.of(context).size.width,
               height: 250,
-              imageUrl: newsArticle.urlToImage,
+              imageUrl: news.urlToImage,
             ),
             Padding(
               padding:
@@ -27,12 +27,12 @@ class NewsDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    newsArticle.title,
+                    news.title,
                     style: GoogleFonts.urbanist(
                         fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    newsArticle.getFormattedPublishedAt(),
+                    news.getFormattedPublishedAt(),
                     style: GoogleFonts.urbanist(
                         fontSize: 12, fontWeight: FontWeight.w300),
                   ),
@@ -40,7 +40,7 @@ class NewsDetail extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    newsArticle.description,
+                    news.description,
                     style: GoogleFonts.lato(
                         fontSize: 14, fontWeight: FontWeight.normal),
                   ),
@@ -48,7 +48,7 @@ class NewsDetail extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    newsArticle.content,
+                    news.content,
                     style: GoogleFonts.lato(
                         fontSize: 14, fontWeight: FontWeight.normal),
                   ),

@@ -21,10 +21,7 @@ class NewsCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 15),
         child: Container(
-          color: Theme
-              .of(context)
-              .colorScheme
-              .secondaryContainer,
+          color: Theme.of(context).colorScheme.secondaryContainer,
           height: 100,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,10 +61,7 @@ class NewsCard extends StatelessWidget {
   }
 
   void pushNewsDetail(BuildContext context, NewsArticle news) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => NewsDetail(newsArticle: news))
-    );
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => NewsDetail(news: news)));
   }
 }
