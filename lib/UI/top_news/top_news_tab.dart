@@ -12,45 +12,43 @@ class TopNewsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: BlocBuilder<TopNewsCubit, TopNewsState>(
-          builder: (context, state) {
-            switch (state.status) {
-              case DataStatus.success:
-                final newsList = state.newsList;
-                return CustomScrollView(
-                  slivers: [
-                    /// Header
-                    CustomSliverAppBar(
-                      title: "Top News",
-                      actions: [
-                        IconButton(
-                          icon: const Icon(Icons.settings),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
+    return Scaffold(
+      body: BlocBuilder<TopNewsCubit, TopNewsState>(
+        builder: (context, state) {
+          switch (state.status) {
+            case DataStatus.success:
+              final newsList = state.newsList;
+              return CustomScrollView(
+                slivers: [
+                  /// Header
+                  CustomSliverAppBar(
+                    title: "Top News",
+                    actions: [
+                      IconButton(
+                        icon: const Icon(Icons.settings),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
 
-                    /// List of news
-                    NewsWidget(newsList: newsList),
+                  /// List of news
+                  NewsWidget(newsList: newsList),
 
-                    const SliverToBoxAdapter(
-                        child: SizedBox(
-                      height: 50,
-                    )),
-                  ],
-                );
-              case DataStatus.loading:
-              case DataStatus.initial:
-                return const NewsShimmerWidget();
-              case DataStatus.error:
-                return PageErrorWidget(onPressed: () {
-                  context.read<TopNewsCubit>().fetchNews();
-                });
-            }
-          },
-        ),
+                  const SliverToBoxAdapter(
+                      child: SizedBox(
+                    height: 50,
+                  )),
+                ],
+              );
+            case DataStatus.loading:
+            case DataStatus.initial:
+              return const NewsShimmerWidget();
+            case DataStatus.error:
+              return PageErrorWidget(onPressed: () {
+                context.read<TopNewsCubit>().fetchNews();
+              });
+          }
+        },
       ),
     );
   }

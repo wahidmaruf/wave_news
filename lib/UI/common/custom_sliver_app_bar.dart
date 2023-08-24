@@ -10,7 +10,7 @@ class CustomSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.blue,
       elevation: 0.0,
       shadowColor: Colors.white,
       expandedHeight: 95.0,
@@ -30,7 +30,8 @@ class CustomSliverAppBar extends StatelessWidget {
             style: GoogleFonts.urbanist(
                 fontSize: 19,
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.secondary),
+                color: Colors.white
+            ),
           ),
         );
       }),
