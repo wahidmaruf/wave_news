@@ -27,7 +27,7 @@ class CustomSliverAppBar extends StatelessWidget {
           centerTitle: isExpanded,
           title: Text(
             title,
-            style: GoogleFonts.urbanist(
+            style: GoogleFonts.raleway(
                 fontSize: 19,
                 fontWeight: FontWeight.bold,
                 color: Colors.white

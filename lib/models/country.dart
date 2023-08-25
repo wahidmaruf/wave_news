@@ -17,4 +17,14 @@ class Country {
       'countryName': countryName,
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is Country &&
+              countryCode == other.countryCode &&
+              countryName == other.countryName;
+
+  @override
+  int get hashCode => countryCode.hashCode ^ countryName.hashCode;
 }

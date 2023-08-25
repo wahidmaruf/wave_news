@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wavenews/UI/news_list/news_list_page.dart';
-import 'package:wavenews/utils/app_utils.dart';
+import 'package:wavenews/utils/app_defaults.dart';
 
 class CategoriesSliverAdapter extends StatelessWidget {
   const CategoriesSliverAdapter({
@@ -28,7 +28,7 @@ class CategoriesSliverAdapter extends StatelessWidget {
               direction: Axis.horizontal,
               spacing: 8,
               runSpacing: 4,
-              children: AppUtils.categories.map((category) {
+              children: AppDefaults.categories.map((category) {
                 return ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(horizontal: 15),

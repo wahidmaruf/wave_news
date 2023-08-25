@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wavenews/UI/common/news_card.dart';
 import 'package:wavenews/cubits/latest_news/latest_news_cubit.dart';
-import 'package:wavenews/utils/app_utils.dart';
+import 'package:wavenews/utils/app_defaults.dart';
 
 
 class LatestNewsAdapter extends StatelessWidget {

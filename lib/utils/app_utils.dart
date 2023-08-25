@@ -1,31 +1,21 @@
-import 'package:wavenews/models/country.dart';
+import 'package:flutter/material.dart';
+import 'package:wavenews/UI/my_news/widgets/topics_sheet.dart';
 
 class AppUtils {
-  static const List<String> categories = [
-    'World',
-    'Top',
-    'Politics',
-    'Environment',
-    'Technology',
-    'Business',
-    'Sports',
-    'Food',
-    'Health',
-    'Tourism',
-    'Entertainment',
-  ];
-
-  static List<Country> countries = [
-    Country(countryCode: "us", countryName: "United States"),
-    Country(countryCode: "gb", countryName: "United Kingdom"),
-    Country(countryCode: "fr", countryName: "France"),
-    Country(countryCode: "de", countryName: "Germany"),
-    Country(countryCode: "it", countryName: "Italy"),
-    Country(countryCode: "no", countryName: "Norway"),
-    Country(countryCode: "ie", countryName: "Ireland"),
-    Country(countryCode: "ru", countryName: "Russia"),
-    Country(countryCode: "in", countryName: "India"),
-    Country(countryCode: "br", countryName: "Brazil"),
-    Country(countryCode: "ar", countryName: "Argentina"),
-  ];
+  static void showTopicsSheet(Size sheetSize, BuildContext context) {
+    showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16.0),
+            topRight: Radius.circular(16.0),
+          ),
+        ),
+        constraints: BoxConstraints(
+            maxWidth: sheetSize.width, maxHeight: sheetSize.height),
+        context: context,
+        builder: (BuildContext context) {
+          return const TopicsSheet();
+        },
+        isScrollControlled: true);
+  }
 }

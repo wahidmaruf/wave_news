@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wavenews/UI/news_list/news_list_page.dart';
-import 'package:wavenews/utils/app_utils.dart';
+import 'package:wavenews/utils/app_defaults.dart';
 
 class CountrySliverAdapter extends StatelessWidget {
   const CountrySliverAdapter({
@@ -28,7 +28,7 @@ class CountrySliverAdapter extends StatelessWidget {
               direction: Axis.horizontal,
               spacing: 8,
               runSpacing: 4,
-              children: AppUtils.countries.map((country) {
+              children: AppDefaults.countries.map((country) {
                 return ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(horizontal: 15),

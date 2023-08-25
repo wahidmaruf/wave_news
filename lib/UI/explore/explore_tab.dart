@@ -11,7 +11,7 @@ import 'package:wavenews/UI/explore/widgets/latest_news_adapter.dart';
 import 'package:wavenews/cubits/latest_news/latest_news_cubit.dart';
 import 'package:wavenews/cubits/search/search_cubit.dart';
 import 'package:wavenews/models/data_status.dart';
-import 'package:wavenews/utils/app_utils.dart';
+import 'package:wavenews/utils/app_defaults.dart';
 import '../common/page_error_widget.dart';
 
 class ExploreTab extends StatelessWidget {
@@ -21,8 +21,8 @@ class ExploreTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body:
-            BlocBuilder<LatestNewsCubit, LatestNewsState>(builder: (context, state) {
+        body: BlocBuilder<LatestNewsCubit, LatestNewsState>(
+            builder: (context, state) {
           return CustomScrollView(
             slivers: [
               /// Header
@@ -54,39 +54,8 @@ class ExploreTab extends StatelessWidget {
               )),
             ],
           );
-        }
-                //   print("Explore state ${state.status}");
-                //   switch (state.status) {
-                //     case DataStatus.success:
-                //
-                //       return CustomScrollView(
-                //         slivers: [
-                //           /// Header
-                //           CustomSliverAppBar(
-                //             title: "Explore",
-                //           ),
-                //
-                //
-                //
-                //           const SliverToBoxAdapter(
-                //               child: SizedBox(
-                //                 height: 50,
-                //               )),
-                //         ],
-                //       );
-                //     case DataStatus.loading:
-                //     case DataStatus.initial:
-                //       return const Text("Loading");
-                //     case DataStatus.error:
-                //       return PageErrorWidget(onPressed: () {
-                //
-                //       });
-                //   }
-                // },
-                ),
+        }),
       ),
     );
   }
 }
-
-

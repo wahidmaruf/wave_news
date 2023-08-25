@@ -14,19 +14,35 @@ class MyNewsCubit extends HydratedCubit<MyNewsState> {
   MyNewsCubit({required this.repository}) : super(MyNewsState.initial());
 
   void fetchNews() async {
-    try {
-      emit(state.copyWith(status: DataStatus.loading));
-      final newsList = await repository.fetchTopHeadlines();
-      if (kDebugMode) {
-        print(newsList.toString());
+    if (state.categoryList.isNotEmpty) {
+      try {
+        emit(state.copyWith(showNoTopics: false));
+        final newsList =
+            await repository.fetchNews(categoryList: state.categoryList);
+        emit(state.copyWith(newsList: newsList, status: DataStatus.success));
+      } catch (e) {
+        emit(state.copyWith(status: DataStatus.error));
+        if (kDebugMode) {
+          print(e);
+        }
       }
-      emit(state.copyWith(newsList: newsList, status: DataStatus.success));
-    } catch (e) {
-      emit(state.copyWith(status: DataStatus.error));
-      if (kDebugMode) {
-        print(e);
-      }
+    } else {
+      emit(state.copyWith(showNoTopics: true));
     }
+  }
+
+  void updateCountrySelection(bool isSelected, String category) {
+    List<String> categoryList =
+        List.from(state.categoryList); // Create a copy of the list
+
+    if (isSelected) {
+      categoryList.add(category);
+    } else {
+      categoryList.removeWhere((element) => element == category);
+    }
+
+    emit(state.copyWith(categoryList: categoryList));
+    fetchNews();
   }
 
   @override
