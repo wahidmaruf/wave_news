@@ -1,59 +1,87 @@
 import 'package:intl/intl.dart';
 
 class NewsArticle {
-  final String sourceId;
-  final String sourceName;
-  final String author;
   final String title;
+  final String link;
+  final List<String> keywords;
+  final List<String> creator;
+  final String videoUrl;
   final String description;
-  final String url;
-  final String urlToImage;
-  final DateTime publishedAt;
   final String content;
+  final DateTime pubDate;
+  final String imageUrl;
+  final String sourceId;
+  final int sourcePriority;
+  final List<String> country;
+  final List<String> category;
+  final String language;
 
   NewsArticle({
-    required this.sourceId,
-    required this.sourceName,
-    required this.author,
     required this.title,
+    required this.link,
+    required this.keywords,
+    required this.creator,
+    required this.videoUrl,
     required this.description,
-    required this.url,
-    required this.urlToImage,
-    required this.publishedAt,
     required this.content,
+    required this.pubDate,
+    required this.imageUrl,
+    required this.sourceId,
+    required this.sourcePriority,
+    required this.country,
+    required this.category,
+    required this.language,
   });
 
   factory NewsArticle.fromJson(Map<String, dynamic> json) {
     return NewsArticle(
-      sourceId: json['source']['id'] ?? "",
-      sourceName: json['source']['name'] ?? "",
-      author: json['author'] ?? "",
-      title: json['title'] ?? "",
-      description: json['description'] ?? "",
-      url: json['url'] ?? "",
-      urlToImage: json['urlToImage'] ?? "",
-      publishedAt: DateTime.parse(json['publishedAt'] ?? ""), // Parse to DateTime
-      content: json['content'] ?? "",
+      title: json['title'] as String? ?? "",
+      link: json['link'] as String? ?? "",
+      keywords: json['keywords'] != null
+          ? List<String>.from(json['keywords'] ?? [])
+          : [],
+      creator: json['creator'] != null
+          ? List<String>.from(json['creator'] ?? [])
+          : [],
+      videoUrl: json['video_url'] as String? ?? "",
+      description: json['description'] as String? ?? "",
+      content: json['content'] as String? ?? "",
+      pubDate: DateTime.parse(json['pubDate'] as String? ?? ""),
+      imageUrl: json['image_url'] as String? ?? "",
+      sourceId: json['source_id'] as String? ?? "",
+      sourcePriority: json['source_priority'] as int? ?? 0,
+      country:  json['country'] != null
+          ? List<String>.from(json['country'])
+          : [],
+      category:   json['category'] != null
+          ? List<String>.from(json['category'])
+          : [],
+      language: json['language'] as String? ?? "",
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'sourceId': sourceId,
-      'sourceName': sourceName,
-      'author': author,
       'title': title,
+      'link': link,
+      'keywords': keywords,
+      'creator': creator,
+      'video_url': videoUrl,
       'description': description,
-      'url': url,
-      'urlToImage': urlToImage,
-      'publishedAt': publishedAt.toIso8601String(), // Convert to ISO 8601 string
       'content': content,
+      'pubDate': pubDate.toIso8601String(),
+      'image_url': imageUrl,
+      'source_id': sourceId,
+      'source_priority': sourcePriority,
+      'country': country,
+      'category': category,
+      'language': language,
     };
   }
 
   String getFormattedPublishedAt() {
     final now = DateTime.now();
-    final difference = now.difference(publishedAt);
+    final difference = now.difference(pubDate);
 
     if (difference.inSeconds < 60) {
       return "${difference.inSeconds} seconds ago";
@@ -66,8 +94,13 @@ class NewsArticle {
     } else if (difference.inHours >= 24 && difference.inHours < 36) {
       return "1 day ago";
     } else {
-      final formattedDate = DateFormat('MMM d, yyyy, HH:mm').format(publishedAt);
+      final formattedDate = DateFormat('MMM d, yyyy, HH:mm').format(pubDate);
       return formattedDate;
     }
   }
 }
+
+
+
+
+

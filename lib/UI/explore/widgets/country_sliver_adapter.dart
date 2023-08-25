@@ -45,7 +45,7 @@ class CountrySliverAdapter extends StatelessWidget {
                             MaterialPageRoute(
                                 builder: (context) => NewsListPage(
                                     title: country.countryName,
-                                    keyword: country.countryCode)));
+                                    countryCode: country.countryCode)));
                       }
                     },
                     child: Text(country.countryName));

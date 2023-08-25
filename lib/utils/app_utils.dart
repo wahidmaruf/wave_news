@@ -2,12 +2,16 @@ import 'package:wavenews/models/country.dart';
 
 class AppUtils {
   static const List<String> categories = [
-    'General',
+    'World',
+    'Top',
+    'Politics',
+    'Environment',
     'Technology',
-    'Science',
-    'Health',
     'Business',
     'Sports',
+    'Food',
+    'Health',
+    'Tourism',
     'Entertainment',
   ];
 

@@ -29,7 +29,7 @@ class NewsWidget extends StatelessWidget {
                   CustomImageWidget(
                     width: MediaQuery.of(context).size.width,
                     height: 250,
-                    imageUrl: news.urlToImage,
+                    imageUrl: news.imageUrl,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(

@@ -9,10 +9,11 @@ import 'package:wavenews/cubits/top_news/top_news_cubit.dart';
 import 'package:wavenews/models/data_status.dart';
 
 class NewsListPage extends StatefulWidget {
-  const NewsListPage({required this.title, required this.keyword, super.key});
+  const NewsListPage({required this.title, this.keyword, this.countryCode, super.key});
 
   final String title;
-  final String keyword;
+  final String? keyword;
+  final String? countryCode;
 
   @override
   State<NewsListPage> createState() => _NewsListPageState();
@@ -21,7 +22,11 @@ class NewsListPage extends StatefulWidget {
 class _NewsListPageState extends State<NewsListPage> {
   @override
   void initState() {
-    context.read<NewsListCubit>().fetch(widget.keyword);
+    if (widget.keyword != null) {
+      context.read<NewsListCubit>().fetchCategoryNews(widget.keyword!);
+    } else if (widget.countryCode != null) {
+      context.read<NewsListCubit>().fetchCountryNews(widget.countryCode!);
+    }
     super.initState();
   }
 

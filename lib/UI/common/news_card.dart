@@ -29,7 +29,7 @@ class NewsCard extends StatelessWidget {
               CustomImageWidget(
                 width: 100,
                 height: 100,
-                imageUrl: news.urlToImage,
+                imageUrl: news.imageUrl,
               ),
               Expanded(
                 child: Padding(

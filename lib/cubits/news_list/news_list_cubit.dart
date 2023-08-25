@@ -5,10 +5,24 @@ import '../top_news/top_news_cubit.dart';
 class NewsListCubit extends TopNewsCubit {
   NewsListCubit({required super.repository});
 
-  void fetch(String keyword) async {
+  void fetchCountryNews(String country) async {
     try {
       emit(state.copyWith(status: DataStatus.loading));
-      final newsList = await repository.fetchNews(keyword: keyword.toString());
+      final newsList = await repository.fetchNews(countryList: [country.toString()]);
+      emit(state.copyWith(newsList: newsList, status: DataStatus.success));
+    } catch (e) {
+      emit(state.copyWith(status: DataStatus.error));
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+
+  void fetchCategoryNews(String keyword) async {
+    try {
+      emit(state.copyWith(status: DataStatus.loading));
+      final newsList = await repository.fetchNews(categoryList: [keyword.toString()]);
       if (kDebugMode) {
         print(newsList.toString());
       }

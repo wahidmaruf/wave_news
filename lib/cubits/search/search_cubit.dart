@@ -16,7 +16,7 @@ class SearchCubit extends HydratedCubit<SearchState> {
   void fetchNews(String keyword) async {
     try {
       emit(state.copyWith(status: DataStatus.loading));
-      final newsList = await repository.fetchNews(keyword: keyword);
+      final newsList = await repository.searchNews(keyword);
       if (kDebugMode) {
         print(newsList.toString());
       }

@@ -9,13 +9,12 @@ class NewsRepository {
 
   NewsRepository();
 
-  Future<List<NewsArticle>> fetchTopHeadlines() async {
-    final response = await http
-        .get(Uri.parse('$baseUrl/top-headlines?country=us&apiKey=$apiKey'));
+  Future<List<NewsArticle>> _fetchNewsArticles(String url) async {
+    final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonData = json.decode(response.body);
-      final List<dynamic> articlesData = jsonData['articles'];
+      final List<dynamic> articlesData = jsonData['results'];
 
       return articlesData
           .map((articleData) => NewsArticle.fromJson(articleData))
@@ -25,19 +24,25 @@ class NewsRepository {
     }
   }
 
-  Future<List<NewsArticle>> fetchNews({String keyword = "latest"}) async {
-    final response = await http
-        .get(Uri.parse('$baseUrl/everything?q=$keyword&apiKey=$apiKey'));
+  Future<List<NewsArticle>> fetchTopHeadlines({List<String> countryList = const ["us"]}) async {
+    final countryParameter = countryList.join(',');
+    final url = "https://newsdata.io/api/1/news?country=$countryParameter&apikey=$apiKey&image=1&video=0&language=en&prioritydomain=top&category=politics,environment";
 
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> jsonData = json.decode(response.body);
-      final List<dynamic> articlesData = jsonData['articles'];
+    return _fetchNewsArticles(url);
+  }
 
-      return articlesData
-          .map((articleData) => NewsArticle.fromJson(articleData))
-          .toList();
-    } else {
-      throw Exception('Failed to fetch news articles');
-    }
+  Future<List<NewsArticle>> fetchNews({List<String>  categoryList = const ["top"], List<String> countryList = const ["us"]}) async {
+    final countryParameter = countryList.join(',');
+    final categoryParameter = categoryList.join(',');
+    final url = "https://newsdata.io/api/1/news?apikey=$apiKey&image=1&video=0&language=en&country=$countryParameter&category=$categoryParameter";
+
+    return _fetchNewsArticles(url);
+  }
+
+  Future<List<NewsArticle>> searchNews(String keyword) async {
+    final url = "https://newsdata.io/api/1/news?apikey=$apiKey&image=1&video=0&language=en&q=$keyword";
+
+    return _fetchNewsArticles(url);
   }
 }
+
