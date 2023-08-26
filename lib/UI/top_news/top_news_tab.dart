@@ -4,6 +4,7 @@ import 'package:wavenews/UI/common/custom_sliver_app_bar.dart';
 import 'package:wavenews/UI/common/page_error_widget.dart';
 import 'package:wavenews/UI/common/shimmer/news_shimmer_widget.dart';
 import 'package:wavenews/UI/top_news/widgets/news_widget.dart';
+import 'package:wavenews/cubits/theme/theme_cubit.dart';
 import 'package:wavenews/cubits/top_news/top_news_cubit.dart';
 import 'package:wavenews/models/data_status.dart';
 
@@ -13,41 +14,57 @@ class TopNewsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: BlocBuilder<TopNewsCubit, TopNewsState>(
         builder: (context, state) {
-          switch (state.status) {
-            case DataStatus.success:
-              final newsList = state.newsList;
-              return CustomScrollView(
-                slivers: [
-                  /// Header
-                  CustomSliverAppBar(
-                    title: "Top News",
-                    actions: [
-                      IconButton(
-                        icon: const Icon(Icons.settings),
-                        onPressed: () {},
-                      ),
-                    ],
+          final newsList = state.newsList;
+          return CustomScrollView(
+            physics: (state.status == DataStatus.loading || state.status == DataStatus.initial ||
+                newsList.isEmpty)
+                ? const NeverScrollableScrollPhysics()
+                : const AlwaysScrollableScrollPhysics(),
+            slivers: [
+              /// Header
+              CustomSliverAppBar(
+                title: "Top News",
+                actions: [
+                  BlocBuilder<ThemeCubit, ThemeState>(
+                    builder: (context, state) {
+                      return IconButton(
+                        color: Colors.white,
+                        icon: state.themeMode == ThemeMode.light
+                            ? const Icon(Icons.light_mode)
+                            : const Icon(Icons.dark_mode),
+                        onPressed: () {
+                          context.read<ThemeCubit>().changeTheme();
+                        },
+                      );
+                    },
                   ),
-
-                  /// List of news
-                  NewsWidget(newsList: newsList),
-
-                  const SliverToBoxAdapter(
-                      child: SizedBox(
-                    height: 50,
-                  )),
                 ],
-              );
-            case DataStatus.loading:
-            case DataStatus.initial:
-              return const NewsShimmerWidget();
-            case DataStatus.error:
-              return PageErrorWidget(onPressed: () {
-                context.read<TopNewsCubit>().fetchNews();
-              });
-          }
+              ),
+
+              /// List of news
+              if (state.status == DataStatus.success ||
+                  newsList.isNotEmpty) ...[
+                NewsWidget(newsList: newsList),
+                const SliverToBoxAdapter(
+                    child: SizedBox(
+                  height: 50,
+                )),
+              ] else if (state.status == DataStatus.loading ||
+                  state.status == DataStatus.initial) ...[
+                const NewsShimmerWidget()
+              ] else ...[
+                /// Error Widget
+                SliverFillRemaining(
+                  child: PageErrorWidget(onPressed: () {
+                    context.read<TopNewsCubit>().fetchNews();
+                  }),
+                )
+              ]
+            ],
+          );
         },
       ),
     );

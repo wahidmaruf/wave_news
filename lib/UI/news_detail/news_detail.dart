@@ -11,7 +11,9 @@ class NewsDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -21,8 +23,7 @@ class NewsDetail extends StatelessWidget {
               imageUrl: news.imageUrl,
             ),
             Padding(
-              padding:
-              const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -33,7 +34,7 @@ class NewsDetail extends StatelessWidget {
                   ),
                   Text(
                     news.getFormattedPublishedAt(),
-                    style: GoogleFonts.urbanist(
+                    style: GoogleFonts.openSans(
                         fontSize: 12, fontWeight: FontWeight.w300),
                   ),
                   const SizedBox(
@@ -41,7 +42,7 @@ class NewsDetail extends StatelessWidget {
                   ),
                   Text(
                     news.description,
-                    style: GoogleFonts.lato(
+                    style: GoogleFonts.openSans(
                         fontSize: 14, fontWeight: FontWeight.normal),
                   ),
                   const SizedBox(

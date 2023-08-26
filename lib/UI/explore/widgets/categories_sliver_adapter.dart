@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wavenews/UI/explore/widgets/category_button.dart';
 import 'package:wavenews/UI/news_list/news_list_page.dart';
 import 'package:wavenews/utils/app_defaults.dart';
 
@@ -19,7 +20,9 @@ class CategoriesSliverAdapter extends StatelessWidget {
             Text(
               "Categories",
               style: GoogleFonts.urbanist(
-                  fontSize: 18, fontWeight: FontWeight.bold),
+                  color: Theme.of(context).colorScheme.onSecondary,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
             ),
             const SizedBox(
               height: 10,
@@ -29,24 +32,17 @@ class CategoriesSliverAdapter extends StatelessWidget {
               spacing: 8,
               runSpacing: 4,
               children: AppDefaults.categories.map((category) {
-                return ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        backgroundColor: Colors.grey.shade200,
-                        foregroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        side: const BorderSide(color: Colors.grey, width: 1)),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => NewsListPage(
-                                  title: category,
-                                  keyword: category.toString())));
-                    },
-                    child: Text(category));
+                return CategoryButton(
+                  text: category,
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NewsListPage(
+                                title: category,
+                                keyword: category.toString())));
+                  },
+                );
               }).toList(),
             )
           ],
@@ -55,3 +51,5 @@ class CategoriesSliverAdapter extends StatelessWidget {
     );
   }
 }
+
+

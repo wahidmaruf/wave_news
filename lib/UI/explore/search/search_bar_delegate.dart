@@ -19,14 +19,14 @@ class SearchBarDelegate extends SliverPersistentHeaderDelegate {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         height: height,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 15),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Container(
-              color: Colors.grey.shade300,
+              color: Theme.of(context).colorScheme.secondaryContainer,
               height: 48,
               child: Padding(
                 padding: const EdgeInsets.all(6.0),
@@ -37,7 +37,8 @@ class SearchBarDelegate extends SliverPersistentHeaderDelegate {
                     Text(
                       "Search news",
                       style: GoogleFonts.openSans(
-                          fontSize: 14
+                        color: Theme.of(context).colorScheme.onSecondary,
+                          fontSize: 14,
                       ),
                     )
                   ],

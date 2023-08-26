@@ -20,31 +20,37 @@ class NoTopicsWidget extends StatelessWidget {
                 text: TextSpan(children: [
               TextSpan(
                 text: "Add topics",
-                style: GoogleFonts.urbanist(
+                style: GoogleFonts.raleway(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                    color: Theme.of(context).colorScheme.onSecondary),
               ),
               TextSpan(
                 text: " to form your personalized news stream",
                 style: GoogleFonts.openSans(
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
-                    color: Colors.black),
+                    color: Theme.of(context).colorScheme.onSecondary),
               )
             ])),
             const SizedBox(
               height: 15,
             ),
-            const Text(
-                "You'll find all the most recent stories related to your chosen topics displayed here."),
+            Text(
+                "You'll find all the most recent stories related to your chosen topics displayed here.",
+              style: GoogleFonts.openSans(
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                  color: Theme.of(context).colorScheme.onSecondary),
+            ),
             const SizedBox(
               height: 15,
             ),
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                         side: BorderSide.none)),

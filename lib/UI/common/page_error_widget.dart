@@ -17,13 +17,18 @@ class PageErrorWidget extends StatelessWidget {
         children: [
           Text(
             "Something went wrong. Please try again later!",
-            style: GoogleFonts.lato(
-              color: Colors.black,
+            style: GoogleFonts.urbanist(
+              color: Theme.of(context).colorScheme.onSecondary,
             ),
           ),
           TextButton(
             onPressed: onPressed,
-            child: const Text("Retry"),
+            child: Text(
+                "Retry",
+              style: GoogleFonts.raleway(
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
+            ),
           ),
         ],
       ),

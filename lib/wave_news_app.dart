@@ -6,7 +6,7 @@ import 'package:wavenews/cubits/search/search_cubit.dart';
 import 'package:wavenews/cubits/theme/theme_cubit.dart';
 import 'package:wavenews/cubits/top_news/top_news_cubit.dart';
 import 'package:wavenews/repository/news_repository.dart';
-
+import 'package:wavenews/utils/color_scheme.dart';
 import 'cubits/my_news/my_news_cubit.dart';
 import 'cubits/news_list/news_list_cubit.dart';
 
@@ -54,11 +54,11 @@ class WaveNewsApp extends StatelessWidget {
                 theme: ThemeData(
                     useMaterial3: true,
                     brightness: Brightness.light,
-                    colorSchemeSeed: const Color(0xff25143a)),
+                    colorScheme: lightColorScheme),
                 darkTheme: ThemeData(
                     useMaterial3: true,
                     brightness: Brightness.dark,
-                    colorSchemeSeed: const Color(0xff25143a)),
+                    colorScheme: darkColorScheme),
                 builder: (context, child) {
                   return MediaQuery(
                     data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
