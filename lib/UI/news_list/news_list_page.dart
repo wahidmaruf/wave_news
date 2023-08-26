@@ -9,7 +9,8 @@ import 'package:wavenews/cubits/top_news/top_news_cubit.dart';
 import 'package:wavenews/models/data_status.dart';
 
 class NewsListPage extends StatefulWidget {
-  const NewsListPage({required this.title, this.keyword, this.countryCode, super.key});
+  const NewsListPage(
+      {required this.title, this.keyword, this.countryCode, super.key});
 
   final String title;
   final String? keyword;
@@ -37,34 +38,33 @@ class _NewsListPageState extends State<NewsListPage> {
         centerTitle: true,
         title: Text(
           widget.title,
-          style: GoogleFonts.urbanist(
-              fontSize: 16,
-              fontWeight: FontWeight.bold
-          ),
+          style:
+              GoogleFonts.urbanist(fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ),
       body: BlocBuilder<NewsListCubit, TopNewsState>(
         builder: (context, state) {
-
           return BlocBuilder<NewsListCubit, TopNewsState>(
             builder: (context, state) {
-              switch (state.status) {
-                case DataStatus.success:
-                  final newsList = state.newsList;
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: List.generate(newsList.length, (index) {
-                        return NewsCard(news: newsList[index]);
-                      }),
-                    ),
-                  );
-                case DataStatus.loading:
-                case DataStatus.initial:
-                  return const NewsShimmerWidget();
-                case DataStatus.error:
-                  return PageErrorWidget(onPressed: () {
-                    context.read<TopNewsCubit>().fetchNews();
-                  });
+              final newsList = state.newsList;
+              if (state.status == DataStatus.success || newsList.isNotEmpty) {
+                return SingleChildScrollView(
+                  child: Column(
+                    children: List.generate(newsList.length, (index) {
+                      return NewsCard(news: newsList[index]);
+                    }),
+                  ),
+                );
+              } else if (state.status == DataStatus.loading || state.status == DataStatus.initial) {
+                return ListView.builder(
+                    itemCount: 12,
+                    itemBuilder: (context, index) {
+                      const NewsShimmerWidget();
+                    });
+              } else {
+                return PageErrorWidget(onPressed: () {
+                  context.read<TopNewsCubit>().fetchNews();
+                });
               }
             },
           );

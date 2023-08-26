@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wavenews/UI/common/custom_refresh_indicator.dart';
 import 'package:wavenews/UI/common/custom_sliver_app_bar.dart';
 import 'package:wavenews/UI/common/page_error_widget.dart';
 import 'package:wavenews/UI/common/shimmer/news_shimmer_widget.dart';
@@ -18,52 +19,57 @@ class TopNewsTab extends StatelessWidget {
       body: BlocBuilder<TopNewsCubit, TopNewsState>(
         builder: (context, state) {
           final newsList = state.newsList;
-          return CustomScrollView(
-            physics: (state.status == DataStatus.loading || state.status == DataStatus.initial ||
-                newsList.isEmpty)
-                ? const NeverScrollableScrollPhysics()
-                : const AlwaysScrollableScrollPhysics(),
-            slivers: [
-              /// Header
-              CustomSliverAppBar(
-                title: "Top News",
-                actions: [
-                  BlocBuilder<ThemeCubit, ThemeState>(
-                    builder: (context, state) {
-                      return IconButton(
-                        color: Colors.white,
-                        icon: state.themeMode == ThemeMode.light
-                            ? const Icon(Icons.light_mode)
-                            : const Icon(Icons.dark_mode),
-                        onPressed: () {
-                          context.read<ThemeCubit>().changeTheme();
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
+          return CustomRefreshIndicator(
+            onRefresh: () async {
+              context.read<TopNewsCubit>().fetchNews();
+            },
+            child: CustomScrollView(
+              physics: (state.status == DataStatus.loading || state.status == DataStatus.initial ||
+                  newsList.isEmpty)
+                  ? const NeverScrollableScrollPhysics()
+                  : const AlwaysScrollableScrollPhysics(),
+              slivers: [
+                /// Header
+                CustomSliverAppBar(
+                  title: "Top News",
+                  actions: [
+                    BlocBuilder<ThemeCubit, ThemeState>(
+                      builder: (context, state) {
+                        return IconButton(
+                          color: Colors.white,
+                          icon: state.themeMode == ThemeMode.light
+                              ? const Icon(Icons.light_mode)
+                              : const Icon(Icons.dark_mode),
+                          onPressed: () {
+                            context.read<ThemeCubit>().changeTheme();
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
 
-              /// List of news
-              if (state.status == DataStatus.success ||
-                  newsList.isNotEmpty) ...[
-                NewsWidget(newsList: newsList),
-                const SliverToBoxAdapter(
-                    child: SizedBox(
-                  height: 50,
-                )),
-              ] else if (state.status == DataStatus.loading ||
-                  state.status == DataStatus.initial) ...[
-                const NewsShimmerWidget()
-              ] else ...[
-                /// Error Widget
-                SliverFillRemaining(
-                  child: PageErrorWidget(onPressed: () {
-                    context.read<TopNewsCubit>().fetchNews();
-                  }),
-                )
-              ]
-            ],
+                /// List of news
+                if (state.status == DataStatus.success ||
+                    newsList.isNotEmpty) ...[
+                  NewsWidget(newsList: newsList),
+                  const SliverToBoxAdapter(
+                      child: SizedBox(
+                    height: 50,
+                  )),
+                ] else if (state.status == DataStatus.loading ||
+                    state.status == DataStatus.initial) ...[
+                  const NewsShimmerSliverWidget()
+                ] else ...[
+                  /// Error Widget
+                  SliverFillRemaining(
+                    child: PageErrorWidget(onPressed: () {
+                      context.read<TopNewsCubit>().fetchNews();
+                    }),
+                  )
+                ]
+              ],
+            ),
           );
         },
       ),

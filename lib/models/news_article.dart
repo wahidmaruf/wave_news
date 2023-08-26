@@ -81,9 +81,9 @@ class NewsArticle {
 
   String getFormattedPublishedAt() {
     final now = DateTime.now();
-    final difference = now.difference(pubDate);
+    final difference = now.difference(pubDate).abs();
 
-    if (difference.inSeconds < 60) {
+    if (difference.inSeconds < 30) {
       return "${difference.inSeconds} seconds ago";
     } else if (difference.inMinutes < 60) {
       return "${difference.inMinutes} minutes ago";

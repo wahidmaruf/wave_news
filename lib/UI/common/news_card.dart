@@ -19,9 +19,22 @@ class NewsCard extends StatelessWidget {
         pushNewsDetail(context, news);
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 15),
+        padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 15),
         child: Container(
-          color: Theme.of(context).colorScheme.secondaryContainer,
+          clipBehavior: Clip.hardEdge,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+            color: Theme.of(context).colorScheme.secondaryContainer,
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(context).colorScheme.shadow.withOpacity(0.3),
+                spreadRadius: 1,
+                blurRadius: 4,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ]
+          ),
+          // color: Theme.of(context).colorScheme.secondaryContainer,
           height: 100,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +55,7 @@ class NewsCard extends StatelessWidget {
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.urbanist(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                            fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                       Text(
                         news.getFormattedPublishedAt(),
