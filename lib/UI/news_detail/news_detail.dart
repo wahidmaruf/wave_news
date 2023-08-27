@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:wavenews/UI/common/custom_image_widget.dart';
 import 'package:wavenews/models/news_article.dart';
 
@@ -7,6 +9,19 @@ class NewsDetail extends StatelessWidget {
   const NewsDetail({required this.news, super.key});
 
   final NewsArticle news;
+
+  _launchURL(String urlString) async {
+    final Uri url = Uri.parse(urlString);
+    var isLaunched = await launchUrl(
+        url,
+      mode: LaunchMode.externalApplication
+    );
+    if (!isLaunched) {
+      if (kDebugMode) {
+        print("Unable to open web page");
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +31,14 @@ class NewsDetail extends StatelessWidget {
           color: Theme.of(context).colorScheme.surfaceTint,
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.link),
+            onPressed: () {
+              _launchURL(news.link);
+            },
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
