@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,16 +11,31 @@ class NewsDetail extends StatelessWidget {
 
   final NewsArticle news;
 
-  _launchURL(String urlString) async {
+  Future<bool> _launchURL(BuildContext context, String urlString) async {
     final Uri url = Uri.parse(urlString);
-    var isLaunched = await launchUrl(
-        url,
-      mode: LaunchMode.externalApplication
-    );
+    return await launchUrl(url, mode: LaunchMode.externalApplication);
+  }
+
+  _showErrorSnackBar(BuildContext context, bool isLaunched) {
     if (!isLaunched) {
-      if (kDebugMode) {
-        print("Unable to open web page");
-      }
+      return;
+    }
+    final snackBar = SnackBar(
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      content: AwesomeSnackbarContent(
+        title: 'Error!',
+        message: 'Unable to open the link. Try again later!',
+        contentType: ContentType.failure,
+      ),
+    );
+
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snackBar);
+    if (kDebugMode) {
+      print("Unable to open web page");
     }
   }
 
@@ -34,8 +50,11 @@ class NewsDetail extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.link),
-            onPressed: () {
-              _launchURL(news.link);
+            onPressed: () async {
+              bool isLaunched = await _launchURL(context, news.link);
+              if (isLaunched && context.mounted) {
+                _showErrorSnackBar(context, !isLaunched);
+              }
             },
           )
         ],
