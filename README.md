@@ -2,15 +2,22 @@
 
 Stay informed with our news app, delivering the latest headlines and stories from around the world
 
-## Getting Started
+## Steps to run the project
+- Add .env file in the root of the project
+- Add the following code with API key from [newsdata.io](https://newsdata.io/)
+    - > apiKey=api_key_here
+- Run the prjects in dev or prod flavour. See the commands below
 
-This project is a starting point for a Flutter application.
+## Commands
+### dev flavor run
+>  flutter run --flavor dev -t lib/main_dev.dart
 
-A few resources to get you started if this is your first Flutter project:
+### prod flavor run
+>  flutter run --flavor prod -t lib/main_prod.dart
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots
+![Screenshot_20230828_123731.png](screenshots%2FScreenshot_20230828_123731.png)
+![Screenshot_20230828_123803.png](screenshots%2FScreenshot_20230828_123803.png)
+![Screenshot_20230828_123814.png](screenshots%2FScreenshot_20230828_123814.png)
+![Screenshot_20230828_123820.png](screenshots%2FScreenshot_20230828_123820.png)
+![Screenshot_20230828_123853.png](screenshots%2FScreenshot_20230828_123853.png)
