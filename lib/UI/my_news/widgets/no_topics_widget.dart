@@ -14,7 +14,7 @@ class NoTopicsWidget extends StatelessWidget {
         padding: const EdgeInsets.all(15.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             RichText(
                 text: TextSpan(children: [

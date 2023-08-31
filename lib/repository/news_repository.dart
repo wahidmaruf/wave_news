@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import '../models/news_article.dart';
 
 class NewsRepository {
-  final String baseUrl = 'https://newsapi.org/v2';
   static final apiKey = dotenv.env['apiKey'];
 
   NewsRepository();

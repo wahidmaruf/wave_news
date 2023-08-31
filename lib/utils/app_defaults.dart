@@ -13,6 +13,7 @@ class AppDefaults {
     'Health',
     'Tourism',
     'Entertainment',
+    'Crypto',
   ];
 
   static List<Country> countries = [
@@ -21,11 +22,13 @@ class AppDefaults {
     Country(countryCode: "fr", countryName: "France"),
     Country(countryCode: "de", countryName: "Germany"),
     Country(countryCode: "it", countryName: "Italy"),
-    Country(countryCode: "no", countryName: "Norway"),
     Country(countryCode: "ie", countryName: "Ireland"),
+    Country(countryCode: "es", countryName: "Spain"),
     Country(countryCode: "ru", countryName: "Russia"),
     Country(countryCode: "in", countryName: "India"),
-    Country(countryCode: "br", countryName: "Brazil"),
-    Country(countryCode: "ar", countryName: "Argentina"),
+    Country(countryCode: "ca", countryName: "Canada"),
+    Country(countryCode: "cn", countryName: "China"),
+    Country(countryCode: "jp", countryName: "Japan"),
+    Country(countryCode: "kr", countryName: "South korea"),
   ];
 }
