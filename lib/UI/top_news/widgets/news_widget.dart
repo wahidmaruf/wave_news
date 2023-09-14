@@ -25,6 +25,7 @@ class NewsWidget extends StatelessWidget {
                 pushNewsDetail(context, news);
               },
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomImageWidget(
                     width: MediaQuery.of(context).size.width,

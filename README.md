@@ -15,6 +15,12 @@ Stay informed with our news app, delivering the latest headlines and stories fro
 ### prod flavor run
 >  flutter run --flavor prod -t lib/main_prod.dart
 
+### prod flavor build bundle
+>  flutter build appbundle --flavor prod -t lib/main_prod.dart --release
+
+### zip the debug symbols in this directory 
+> \build\app\intermediates\merged_native_libs\prodRelease\out\lib
+
 ## Screenshots
 ![Screenshot_20230828_123731.png](screenshots%2FScreenshot_20230828_123731.png)
 ![Screenshot_20230828_123803.png](screenshots%2FScreenshot_20230828_123803.png)

@@ -72,6 +72,9 @@ class NewsDetail extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Text(
                     news.title,
                     style: GoogleFonts.urbanist(
@@ -81,6 +84,17 @@ class NewsDetail extends StatelessWidget {
                     news.getFormattedPublishedAt(),
                     style: GoogleFonts.openSans(
                         fontSize: 12, fontWeight: FontWeight.w300),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    "By ${news.getCreators()}",
+                    style: GoogleFonts.urbanist(
+                        fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "${news.sourceId.toUpperCase()}  |  ${news.getCountries()}",
+                    style: GoogleFonts.urbanist(
+                        fontSize: 15, fontWeight: FontWeight.w300),
                   ),
                   const SizedBox(
                     height: 20,
@@ -98,6 +112,9 @@ class NewsDetail extends StatelessWidget {
                     style: GoogleFonts.lato(
                         fontSize: 14, fontWeight: FontWeight.normal),
                   ),
+                  const SizedBox(
+                    height: 30,
+                  )
                 ],
               ),
             ),

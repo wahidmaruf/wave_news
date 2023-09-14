@@ -99,6 +99,27 @@ class NewsArticle {
     }
   }
 
+  String getCreators() {
+    return creator.join(', ');
+  }
+
+  String getCountries() {
+    List<String> capitalizedCountries = country.map((c) {
+      List<String> words = c.split(' ');
+
+      List<String> capitalizedWords = words.map((word) {
+        if (word.isNotEmpty) {
+          return word[0].toUpperCase() + word.substring(1);
+        }
+        return word;
+      }).toList();
+
+      return capitalizedWords.join(' ');
+    }).toList();
+
+    return capitalizedCountries.join(', ');
+  }
+
   NewsArticle copyWith({
     String? title,
     String? link,
