@@ -4,6 +4,7 @@ import 'package:wavenews/UI/common/custom_refresh_indicator.dart';
 import 'package:wavenews/UI/common/custom_sliver_app_bar.dart';
 import 'package:wavenews/UI/common/page_error_widget.dart';
 import 'package:wavenews/UI/common/shimmer/news_shimmer_widget.dart';
+import 'package:wavenews/UI/settings/settings_page.dart';
 import 'package:wavenews/UI/top_news/widgets/news_widget.dart';
 import 'package:wavenews/cubits/theme/theme_cubit.dart';
 import 'package:wavenews/cubits/top_news/top_news_cubit.dart';
@@ -33,15 +34,19 @@ class TopNewsTab extends StatelessWidget {
                 CustomSliverAppBar(
                   title: "Top News",
                   actions: [
+                    /// Settings icon
                     BlocBuilder<ThemeCubit, ThemeState>(
                       builder: (context, state) {
                         return IconButton(
                           color: Colors.white,
-                          icon: state.themeMode == ThemeMode.light
-                              ? const Icon(Icons.light_mode)
-                              : const Icon(Icons.dark_mode),
+                          icon: const Icon(Icons.settings),
                           onPressed: () {
-                            context.read<ThemeCubit>().changeTheme();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SettingsPage()
+                                )
+                            );
                           },
                         );
                       },

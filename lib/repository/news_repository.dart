@@ -15,33 +15,54 @@ class NewsRepository {
       final Map<String, dynamic> jsonData = json.decode(response.body);
       final List<dynamic> articlesData = jsonData['results'];
 
-      return articlesData
-          .map((articleData) => NewsArticle.fromJson(articleData))
-          .toList();
+      final List<NewsArticle> filteredArticles = [];
+
+      for (dynamic articleData in articlesData) {
+        NewsArticle article = NewsArticle.fromJson(articleData);
+
+        article = article.copyWith(
+          title: removeUnnecessaryCharacters(article.title),
+          description: removeUnnecessaryCharacters(article.description),
+          content: removeUnnecessaryCharacters(article.content),
+        );
+        filteredArticles.add(article);
+      }
+
+      return filteredArticles;
     } else {
       throw Exception('Failed to fetch news articles');
     }
   }
 
-  Future<List<NewsArticle>> fetchTopHeadlines({List<String> countryList = const ["us"]}) async {
+  String removeUnnecessaryCharacters(String input) {
+    final pattern = RegExp(r'[^\x00-\x7F]+'); // Matches non-ASCII characters
+    return input.replaceAll(pattern, '');
+  }
+
+  Future<List<NewsArticle>> fetchTopHeadlines(
+      {List<String> countryList = const ["us"]}) async {
     final countryParameter = countryList.join(',');
-    final url = "https://newsdata.io/api/1/news?country=$countryParameter&apikey=$apiKey&image=1&video=0&language=en&prioritydomain=top&category=politics,environment";
+    final url =
+        "https://newsdata.io/api/1/news?country=$countryParameter&apikey=$apiKey&image=1&video=0&language=en&prioritydomain=top&category=politics,environment";
 
     return _fetchNewsArticles(url);
   }
 
-  Future<List<NewsArticle>> fetchNews({List<String>  categoryList = const ["top"], List<String> countryList = const ["us"]}) async {
+  Future<List<NewsArticle>> fetchNews(
+      {List<String> categoryList = const ["top"],
+      List<String> countryList = const ["us"]}) async {
     final countryParameter = countryList.join(',');
     final categoryParameter = categoryList.join(',');
-    final url = "https://newsdata.io/api/1/news?apikey=$apiKey&image=1&video=0&language=en&country=$countryParameter&category=$categoryParameter";
+    final url =
+        "https://newsdata.io/api/1/news?apikey=$apiKey&image=1&video=0&language=en&country=$countryParameter&category=$categoryParameter";
 
     return _fetchNewsArticles(url);
   }
 
   Future<List<NewsArticle>> searchNews(String keyword) async {
-    final url = "https://newsdata.io/api/1/news?apikey=$apiKey&image=1&video=0&language=en&q=$keyword";
+    final url =
+        "https://newsdata.io/api/1/news?apikey=$apiKey&image=1&video=0&language=en&q=$keyword";
 
     return _fetchNewsArticles(url);
   }
 }
-

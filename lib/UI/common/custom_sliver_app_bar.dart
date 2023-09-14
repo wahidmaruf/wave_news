@@ -5,8 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomSliverAppBar extends StatelessWidget {
   final String title;
   final List<Widget>? actions;
+  final bool? isCenter;
 
-  const CustomSliverAppBar({super.key, required this.title, this.actions});
+  const CustomSliverAppBar({super.key, required this.title, this.actions, this.isCenter});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class CustomSliverAppBar extends StatelessWidget {
           return FlexibleSpaceBar(
             titlePadding:
                 const EdgeInsetsDirectional.only(start: 15.0, bottom: 20),
-            centerTitle: isExpanded,
+            centerTitle: isCenter ?? isExpanded,
             title: Text(
               title,
               style: GoogleFonts.raleway(

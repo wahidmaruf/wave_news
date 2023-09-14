@@ -98,6 +98,40 @@ class NewsArticle {
       return formattedDate;
     }
   }
+
+  NewsArticle copyWith({
+    String? title,
+    String? link,
+    List<String>? keywords,
+    List<String>? creator,
+    String? videoUrl,
+    String? description,
+    String? content,
+    DateTime? pubDate,
+    String? imageUrl,
+    String? sourceId,
+    int? sourcePriority,
+    List<String>? country,
+    List<String>? category,
+    String? language,
+  }) {
+    return NewsArticle(
+      title: title ?? this.title,
+      link: link ?? this.link,
+      keywords: keywords ?? this.keywords,
+      creator: creator ?? this.creator,
+      videoUrl: videoUrl ?? this.videoUrl,
+      description: description ?? this.description,
+      content: content ?? this.content,
+      pubDate: pubDate ?? this.pubDate,
+      imageUrl: imageUrl ?? this.imageUrl,
+      sourceId: sourceId ?? this.sourceId,
+      sourcePriority: sourcePriority ?? this.sourcePriority,
+      country: country ?? this.country,
+      category: category ?? this.category,
+      language: language ?? this.language,
+    );
+  }
 }
 
 
